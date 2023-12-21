@@ -27,6 +27,7 @@ Run the following steps as `ACCOUNTADMIN`.
 ```
 CREATE ROLE spcs_role;
 GRANT ROLE spcs_role TO ACCOUNTADMIN;
+GRANT BIND SERVICE ENDPOINT ON ACCOUNT TO ROLE spcs_role;
 ```
 2. Create a `COMPUTE POOL`.
 ```
