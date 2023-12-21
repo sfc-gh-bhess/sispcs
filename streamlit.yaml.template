@@ -1,0 +1,26 @@
+spec:
+  containers:
+    - name: streamlit
+      image: <<repository_url>>/sispcs
+      env:
+        SNOWFLAKE_WAREHOUSE: <<warehouse_name>>
+        STREAMLIT_REQUIREMENTS: <<streamlit_requirements>>
+      args:
+        - <<streamlit_main>>
+      volumeMounts:
+        - name: streamlit
+          mountPath: /streamlit
+        - name: pythonpath
+          mountPath: /root/.local/lib/python3.10/site-packages
+
+  endpoints:
+    - name: streamlit
+      port: 8080
+      public: true
+  volumes:
+    - name: streamlit
+      source: "<<streamlit_stage>>"
+    - name: pythonpath
+      source: "<<pythonpath_stage>>"
+  networkPolicyConfig:
+    allowInternetEgress: true

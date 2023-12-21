@@ -1,0 +1,20 @@
+version: "3"
+
+services:
+    streamlit:
+        build: .
+        ports:
+            - 8080:8080
+            - 8081:8081
+        environment:
+          - SNOWFLAKE_ACCOUNT=${SNOWFLAKE_ACCOUNT}
+          - SNOWFLAKE_USER=${SNOWFLAKE_USER}
+          - SNOWFLAKE_PASSWORD=${SNOWFLAKE_PASSWORD}
+          - SNOWFLAKE_DATABASE=${SNOWFLAKE_DATABASE}
+          - SNOWFLAKE_SCHEMA=${SNOWFLAKE_SCHEMA}
+          - SNOWFLAKE_WAREHOUSE=${SNOWFLAKE_WAREHOUSE}
+          - STREAMLIT_REQUIREMENTS=requirements.txt
+        command: app.py
+        volumes:
+          - ./test/streamlit:/streamlit
+          - ./test/pythonpath:/usr/local/lib/python3.10/site-packages
