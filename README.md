@@ -154,21 +154,21 @@ spec:
       source: "@sandbox.spcs.streamlit_src"
     - name: pythonpath
       source: "@sandbox.spcs.python_packages"
-  networkPolicyConfig:
-    allowInternetEgress: true
+serviceRoles:
+- name: app
+  endpoints:
+  - streamlit
 $$;
 ```
 3. See that the service has started by executing `SHOW SERVICES IN COMPUTE POOL pool1` 
   and `SELECT system$get_service_status('sispcs')`.
 4. Find the public endpoint for the service by executing `SHOW ENDPOINTS IN SERVICE sispcs`.
-5. Grant `USAGE` on the `SERVICE` to other `ROLES` so they can access it: 
-  `GRANT USAGE ON SERVICE sispcs TO ROLE some_role`.
-  Note that a user needs to have a default `ROLE` _other_ than `ACCOUNTADMIN`,
-  `SECURITYADMIN`, or `ORGADMIN` to visit the endpoint for the `SERVICE`.
+5. Grant permissions for folks to visit the Streamlit. You do this by granting 
+   the SERVICE ROLE: `GRANT SERVICE ROLE sispcs!app TO ROLE some_role`, 
+   where you specify the role in place of `some_role`.
 
 ## Use the Streamlit
-1. Navigate to the endpoint and authenticate. Note, you must use a user whose
-   default role is _not_ `ACCOUNTADMIN`, `SECURITYADMIN`, or `ORGADMIN`.
+1. Navigate to the endpoint and authenticate.
 2. Enjoy!
 
 

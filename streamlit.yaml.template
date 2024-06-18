@@ -22,5 +22,7 @@ spec:
       source: "<<streamlit_stage>>"
     - name: pythonpath
       source: "<<pythonpath_stage>>"
-  networkPolicyConfig:
-    allowInternetEgress: true
+serviceRoles:
+- name: app
+  endpoints:
+  - streamlit
